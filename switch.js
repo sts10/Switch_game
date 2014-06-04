@@ -12,3 +12,16 @@
 // Game Objective: Switch the pieces so that the black tokens are all on the left side of the board 
 // and the red tokens are on the right, in the shortest amount of time and shortest number of moves possible.
 "use strict";
+window.onload = function(){
+	//draw initial board configuration
+	for (var i = 1; i <= 9; i++) {
+		if (i == 5) continue;
+		var canvas = document.getElementById(i.toString());
+
+		var context = canvas.getContext("2d");
+		context.beginPath();
+		context.arc(25,25,25,0,2*Math.PI,true); //draws circles
+		context.fillStyle = (i<5) ? "#f00" : "#00f"; //sets circle color to red or blue
+		context.fill();
+	}
+};
