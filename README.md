@@ -15,5 +15,5 @@ exactly one token(of either color) to land on an unoccupied space.
 Game Objective: 
 Switch the pieces so that the blue tokens all end up on the left side of the board 
 and the red tokens are on the right, with the middle square again empty.
-Do it in the shortest amount of time and shortest number of moves possible!
+Do it in the shortest number of moves possible!
 
