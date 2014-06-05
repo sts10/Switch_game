@@ -95,7 +95,7 @@ window.onload = function(){
 			if (i<=3 && board_array[i].color == "blue"){
 				correct_dots++;
 			}
-			if (i>4 && i <= 9 && board_array[i].color == "red"){
+			if (i>4 && i <= 8 && board_array[i].color == "red"){
 				correct_dots++;
 			}
 		}
