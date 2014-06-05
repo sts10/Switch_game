@@ -26,33 +26,33 @@ window.onload = function(){
 	board.addEventListener("click", function(evt){
 	  var e = evt.target; //get the target element that was clicked
 	  if(e.nodeName.toLowerCase() === "canvas"){ // only trigger if a canvas element was clicked
-	      var canvas = document.getElementById(e.id);
-	      var context = canvas.getContext("2d");
+      var canvas = document.getElementById(e.id);
+      var context = canvas.getContext("2d");
 
-	      var clicked_box_index = e.id - 1;
+      var clicked_box_index = e.id - 1;
 
-	      // check if move valid
-	      if (board_array[clicked_box_index].can_move){
-	      	// 1: update board_array
-	      	board_array[white_position].color = board_array[clicked_box_index].color;
-	      	board_array[clicked_box_index].color = "white";
-	      	white_position = clicked_box_index;
+      // check if move is valid
+      if (board_array[clicked_box_index].can_move){
+      	// 1: update board_array
+      	board_array[white_position].color = board_array[clicked_box_index].color;
+      	board_array[clicked_box_index].color = "white";
+      	white_position = clicked_box_index;
 
-	      	// 2: update all can_move booleans
-	      	updateCanMoveBooleans();
-	      	
-	      	// 3: call our super cool redrawCanvases function
-	      	redrawCanvases();
+      	// 2: update all can_move booleans
+      	updateCanMoveBooleans();
+      	
+      	// 3: call our super cool redrawCanvases function
+      	redrawCanvases();
 
-	      	// 4: update number_of_moves
-	      	updateNumberOfMoves();
+      	// 4: update number_of_moves
+      	updateNumberOfMoves();
 
-	      	// 5: Check if player has won. 
-	      	if (checkIfWin()){
-	      		alert("You won! It took you " + number_of_moves + " moves.");
-	      		resetGame();
-	      	}
-	      }
+      	// 5: Check if player has won. 
+      	if (checkIfWin()){
+      		alert("You won! It took you " + number_of_moves + " moves.");
+      		resetGame();
+      	}
+      }
 	  }
 	});
 
@@ -69,33 +69,22 @@ window.onload = function(){
 
 	function redrawCanvases(){
 		for (var i = 1; i <= 9; i++) {
-			if (board_array[i-1].color == "white"){
-				var canvas = document.getElementById(i.toString());
-				var context = canvas.getContext("2d");
+			var canvas = document.getElementById(i.toString());
+			var context = canvas.getContext("2d");
+
+			if (board_array[i-1].color == "white"){ // if color == "white" clear the rectangle
 				context.clearRect (0 , 0 , 51 , 51);
-			} 
-			if (board_array[i-1].color == "red"){
-				var canvas = document.getElementById(i.toString());
-				var context = canvas.getContext("2d");
+			} else { // else it must be blue or red, so assign fillStyle to .color
 				context.beginPath();
 				context.arc(25,25,25,0,2*Math.PI,true); //draws circles
-				context.fillStyle = "red"; //sets circle color to red or blue
+				context.fillStyle = board_array[i-1].color; //sets circle color to red or blue
 				context.fill();
-			} 
-			if (board_array[i-1].color == "blue"){
-				var canvas = document.getElementById(i.toString());
-				var context = canvas.getContext("2d");
-				context.beginPath();
-				context.arc(25,25,25,0,2*Math.PI,true); //draws circles
-				context.fillStyle = "blue"; //sets circle color to red or blue
-				context.fill();
-			} 
-			
+			}
 		}
 	}
 
 	function updateNumberOfMoves(){
-		number_of_moves = number_of_moves + 1;
+		number_of_moves++; 
 		var numberOfMovesTextBox = document.getElementById("number_of_moves");
 		numberOfMovesTextBox.innerHTML = number_of_moves;
 	}
@@ -104,10 +93,10 @@ window.onload = function(){
 		var correct_dots = 0;
 		for (var i=0; i < 9; i++){
 			if (i<=3 && board_array[i].color == "blue"){
-				correct_dots = correct_dots + 1;
+				correct_dots++;
 			}
 			if (i>4 && i <= 9 && board_array[i].color == "red"){
-				correct_dots = correct_dots + 1;
+				correct_dots++;
 			}
 		}
 
@@ -136,7 +125,7 @@ window.onload = function(){
 		}
 
 	  board_array = [
-	  	{ // this represents the first box
+	  	{ // each object in this array represents one of the 9 boxes
 	  		color: "red",
 	  		can_move: false
 	  	},
