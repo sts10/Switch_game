@@ -14,66 +14,10 @@
 "use strict";
 window.onload = function(){
 	//draw initial board configuration
-	for (var i = 1; i <= 9; i++) {
-		if (i == 5) continue;
-		var canvas = document.getElementById(i.toString());
+	var board_array = [];
+	var white_position = 0;
 
-		var context = canvas.getContext("2d");
-		context.beginPath();
-		context.arc(25,25,25,0,2*Math.PI,true); //draws circles
-		context.fillStyle = (i<5) ? "#f00" : "#00f"; //sets circle color to red or blue
-		context.fill();
-	}
-
-	var board = document.getElementById("board");
-
-	// if (board_array == [something here])
-  // {
-  // 	player won
-  // }
-
-  var board_array = [
-  	{ // this represents the first box
-  		color: "red",
-  		can_move: false
-  	},
-  	{
-  		color: "red",
-  		can_move: false
-  	},
-  	{
-  		color: "red",
-  		can_move: true
-  	},
-  	{
-  		color: "red",
-  		can_move: true
-  	},
-  	{
-  		color: "white",
-  		can_move: false,
-  	},
-  	{
-  		color: "blue",
-  		can_move: true,
-  	},
-  	{
-  		color: "blue",
-  		can_move: true,
-  	},
-  	{
-  		color: "blue",
-  		can_move: false,
-  	},
-  	{
-  		color: "blue",
-  		can_move: false,
-  	}
-  ];
-
-  var white_position = 4;
-
-  // alert(board_hash[4].color);
+	resetGame();
 
   var board = document.getElementById("board");
 
@@ -88,30 +32,26 @@ window.onload = function(){
 	      // check if move valid
 	      if (board_array[clicked_box_index].can_move){
 	      	// 1: update board_array
-
 	      	board_array[white_position].color = board_array[clicked_box_index].color;
-	      	
 	      	board_array[clicked_box_index].color = "white";
-
 	      	white_position = clicked_box_index;
 
 	      	// 2: update all can_move booleans
 	      	updateCanMoveBooleans()
 	      	
 	      	// 3: call our super cool redrawCanvases function
-	      	
 	      	redrawCanvases();
 
-
+	      	if (checkIfWin()){
+	      		alert("you won!");
+	      		resetGame();
+	      	}
 	      }
-
-
-
 	  }
 	});
 
 	function updateCanMoveBooleans(){
-		for(i=0; i< 9; i++){
+		for(var i=0; i< 9; i++){
 			if (white_position-2 <= i && i <= white_position + 2){
 				board_array[i].can_move = true;
 			} else {
@@ -149,6 +89,80 @@ window.onload = function(){
 			} 
 			
 		}
+	}
+
+	function checkIfWin(){
+		var correct_dots = 0;
+		for (var i=0; i < 9; i++){
+			if (i<=3 && board_array[i].color == "blue"){
+				correct_dots = correct_dots + 1;
+			}
+			if (i>4 && i <= 9 && board_array[i].color == "red"){
+				correct_dots = correct_dots + 1;
+			}
+		}
+
+		if (correct_dots == 8){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function resetGame(){
+			for (var i = 1; i <= 9; i++) {
+				if (i == 5) continue;
+				var canvas = document.getElementById(i.toString());
+
+				var context = canvas.getContext("2d");
+				context.beginPath();
+				context.arc(25,25,25,0,2*Math.PI,true); //draws circles
+				context.fillStyle = (i<5) ? "#f00" : "#00f"; //sets circle color to red or blue
+				context.fill();
+			}
+
+			// var board = document.getElementById("board");
+
+		  board_array = [
+		  	{ // this represents the first box
+		  		color: "red",
+		  		can_move: false
+		  	},
+		  	{
+		  		color: "red",
+		  		can_move: false
+		  	},
+		  	{
+		  		color: "red",
+		  		can_move: true
+		  	},
+		  	{
+		  		color: "red",
+		  		can_move: true
+		  	},
+		  	{
+		  		color: "white",
+		  		can_move: false,
+		  	},
+		  	{
+		  		color: "blue",
+		  		can_move: true,
+		  	},
+		  	{
+		  		color: "blue",
+		  		can_move: true,
+		  	},
+		  	{
+		  		color: "blue",
+		  		can_move: false,
+		  	},
+		  	{
+		  		color: "blue",
+		  		can_move: false,
+		  	}
+		  ];
+
+		  white_position = 4;
 	}
 };
 
