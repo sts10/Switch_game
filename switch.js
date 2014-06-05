@@ -13,11 +13,12 @@
 // and the red tokens are on the right, in the shortest amount of time and shortest number of moves possible.
 "use strict";
 window.onload = function(){
-	//draw initial board configuration
+	// initialize global variables
 	var board_array = [];
 	var white_position = 0;
 	var number_of_moves = 0;
 
+	// set-up game board for the first time. 
 	resetGame();
 
   var board = document.getElementById("board");
@@ -46,7 +47,7 @@ window.onload = function(){
 	      	// 4: update number_of_moves
 	      	updateNumberOfMoves();
 
-	      	// 5: Check if they have won. 
+	      	// 5: Check if player has won. 
 	      	if (checkIfWin()){
 	      		alert("You won! It took you " + number_of_moves + " moves.");
 	      		resetGame();
@@ -62,11 +63,8 @@ window.onload = function(){
 			} else {
 				board_array[i].can_move = false; 
 			}
-			console.log("can_move of " + i + " is " +board_array[i].can_move);
 		}
-
-		board_array[white_position].can_move = false;
-
+		board_array[white_position].can_move = false; // new white position cannot move
 	}
 
 	function redrawCanvases(){
