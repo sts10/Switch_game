@@ -3,6 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Switch!</title>
+	<style type="text/css">
+		.text {
+			margin: 10px;
+			width: 300px;
+		}
+	</style>
 </head>
 <body>
 <div id="board">
@@ -16,6 +22,14 @@
 	<canvas id="8" width=51 height=51 style="border-style:solid; border-width:2px;"></canvas>
 	<canvas id="9" width=51 height=51 style="border-style:solid; border-width:2px;"></canvas>
 </div>
+<div class="text">
+	Objective: Try to get all the red dots to the right side, and all of the blue dots to the left side in as few moves as possible. 
+</div>
+<div class="text">
+	Number of Moves: <span id="number_of_moves">0</span>
+</div>
+
+
 <script src="switch.js"></script>
 </body>
 </html>
